@@ -4,7 +4,15 @@
   "description": "The updated React follow along project from teacher extraordinare Sir Tyler McGinnis (tylermcginnis.com)",
   "main": "index.js",
   "scripts": {
+    "build": "NODE_ENV='production' webpack",
+    "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "babel": {
+    "presets" : [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
   },
   "keywords": [
     "react",
@@ -13,9 +21,13 @@
   "author": "tahoe robbo",
   "license": "ISC",
   "dependencies": {
-    "react": "^16.9.0"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
     "html-webpack-plugin": "^3.2.0",
