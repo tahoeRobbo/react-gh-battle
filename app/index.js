@@ -13,6 +13,7 @@ class App extends React.Component {
             <div className="container">
                 <h1 >to all my shnizzies</h1>
                 <Battle />
+                {/*<Popular />*/}
             </div>
         )
     }
