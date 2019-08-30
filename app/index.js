@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 
 import Hello from "./components";
 import Popular from "./components/Popular";
+import Battle from "./components/Battle";
+
 import './index.css'
 
 class App extends React.Component {
@@ -10,7 +12,7 @@ class App extends React.Component {
         return (
             <div className="container">
                 <h1 >to all my shnizzies</h1>
-                <Popular />
+                <Battle />
             </div>
         )
     }
