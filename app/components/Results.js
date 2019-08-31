@@ -5,6 +5,7 @@ import { FaCompass, FaBriefcase, FaUsers, FaUserFriends, FaCode, FaUser } from "
 
 import Card from "./Card";
 import { battle } from "../utils/api";
+import Loading from "./Loading";
 
 function ProfileList ({ profile }) {
     return (
@@ -73,12 +74,11 @@ class Results extends React.Component {
             })
     }
 
-    render() {
-        const { winner, loser, error, loading } = this.state
+    render() {const { winner, loser, error, loading } = this.state
         const { onReset } = this.props
 
         if (loading === true) {
-            return <p>LOADING</p>
+            return <Loading />
         }
 
 
