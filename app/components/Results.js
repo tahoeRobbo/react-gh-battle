@@ -27,7 +27,7 @@ function ProfileList ({ profile }) {
             )}
             {profile.company && (
                 <li>
-                    <Tooltip text="User's location">
+                    <Tooltip text="User's company">
                         <FaBriefcase color='#795548' size={22} />
                         {profile.company}
                     </Tooltip>
