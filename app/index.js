@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Hello from "./components";
 import Popular from "./components/Popular";
@@ -33,9 +33,13 @@ class App extends React.Component {
                     <div className={this.state.theme}>
                         <div className="container">
                             <Nav />
-                            <Route exact path='/' component={Popular} />
-                            <Route exact path='/battle' component={Battle} />
-                            <Route path='/battle/results' component={Results} />
+                            <Switch>
+                                <Route exact path='/' component={Popular} />
+                                <Route exact path='/battle' component={Battle} />
+                                <Route path='/battle/results' component={Results} />
+                                {/*<Route component={FourOhFour} /> TODO implement a 404 component? */}
+                                <Route render={() => <h1>404</h1>} />
+                            </Switch>
                         </div>
                     </div>
                 </ThemeProvider>
