@@ -4,6 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './app/index.js',
+    devServer: {
+        historyApiFallback: true
+    },
     module: {
         rules: [
             { test: /\.svg$/, use: 'svg-inline-loader' },
@@ -18,7 +21,8 @@ module.exports = {
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'index_bundle.js'
+        filename: 'index_bundle.js',
+        publicPath: '/'
     },
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development'
 };

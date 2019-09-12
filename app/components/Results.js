@@ -9,8 +9,6 @@ import Loading from "./Loading";
 import Tooltip from "./Tooltip";
 
 function ProfileList ({ profile }) {
-    console.log(profile)
-
     return (
         <ul className='card-list'>
             <li>

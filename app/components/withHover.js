@@ -41,5 +41,4 @@ export default function withHover (Component, propName = 'hovering') {
             );
         }
     }
-
 }
