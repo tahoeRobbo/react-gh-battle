@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'
 
 import Results from "./Results";
 import { ThemeConsumer } from "../contexts/Theme"
@@ -166,21 +167,21 @@ class Battle extends React.Component {
     render() {
         const { battle, playerOne, playerTwo } = this.state
 
-        if (battle === true) {
-            return (
-                <Results
-                    playerOne={playerOne}
-                    playerTwo={playerTwo}
-                    onReset={() => {
-                        this.setState({
-                            playerOne: null,
-                            playerTwo: null,
-                            battle: false
-                        })
-                    }}
-                />
-            )
-         }
+        // if (battle === true) {
+        //     return (
+        //         <Results
+        //             playerOne={playerOne}
+        //             playerTwo={playerTwo}
+        //             onReset={() => {
+        //                 this.setState({
+        //                     playerOne: null,
+        //                     playerTwo: null,
+        //                     battle: false
+        //                 })
+        //             }}
+        //         />
+        //     )
+        //  }
 
         return (
             <React.Fragment>
@@ -215,11 +216,17 @@ class Battle extends React.Component {
                      </div>
 
                     {playerOne && playerTwo && (
-                        <button
+                        <Link
                             className='btn dark-btn btn-space'
-                            onClick={() => this.setState({battle: true})}>
+                            onClick={() => this.setState({battle: true})}
+                            to={{
+                                pathname: '/battle/results',
+                                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
+
+                            }}
+                        >
                             Battle
-                        </button>
+                        </Link>
                     )}
 
                 </div>
