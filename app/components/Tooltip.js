@@ -28,6 +28,10 @@ const styles = {
 }
 
 class Tooltip extends React.Component {
+    static propTypes = {
+        text: PropTypes.string.isRequired
+    }
+
     render() {
         const { text, children } = this.props
 
@@ -46,9 +50,9 @@ class Tooltip extends React.Component {
     }
 }
 
-Tooltip.propTypes = {
-    text: PropTypes.string.isRequired
-}
+// Tooltip.propTypes = {
+//     text: PropTypes.string.isRequired
+// }
 
 export default Tooltip
 

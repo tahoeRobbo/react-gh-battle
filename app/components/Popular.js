@@ -33,7 +33,6 @@ LanguagesNav.propTypes = {
 };
 
 function ReposGrid ({ repos }) {
-    console.log('repos', repos)
     return (
         <ul className='grid space-around'>
             {repos.map((repo, i) => {
@@ -83,24 +82,13 @@ ReposGrid.propTypes = {
 }
 
 export default class Popular extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            selectedLanguage: 'All',
-            repos: {},
-            error: null
-        }
-
-        this.updateLanguage = this.updateLanguage.bind(this);
-        this.isLoading = this.isLoading.bind(this);
+    state = {
+        selectedLanguage: 'All',
+        repos: {},
+        error: null
     }
 
-    componentDidMount() {
-        this.updateLanguage(this.state.selectedLanguage)
-    }
-
-    updateLanguage (selectedLanguage) {
+    updateLanguage = (selectedLanguage) => {
         this.setState({
             selectedLanguage,
             error: null
@@ -112,7 +100,7 @@ export default class Popular extends React.Component {
                     this.setState(({ repos }) => ({
                         repos: {
                             ...repos,
-                             [selectedLanguage]: data
+                            [selectedLanguage]: data
                         }
                     }))
                 })
@@ -125,9 +113,13 @@ export default class Popular extends React.Component {
         }
     }
 
-    isLoading() {
+    isLoading = () => {
         const { selectedLanguage, repos, error} = this.state
         return !repos[selectedLanguage] && error === null
+    }
+
+    componentDidMount() {
+        this.updateLanguage(this.state.selectedLanguage)
     }
 
     render() {
@@ -148,6 +140,51 @@ export default class Popular extends React.Component {
         )
     }
 }
+
+// constructor(props) {
+//     super(props)
+//
+//     this.state = {
+//         selectedLanguage: 'All',
+//         repos: {},
+//         error: null
+//     }
+//
+//     this.updateLanguage = this.updateLanguage.bind(this);
+//     this.isLoading = this.isLoading.bind(this);
+// }
+
+
+// updateLanguage (selectedLanguage) {
+//     this.setState({
+//         selectedLanguage,
+//         error: null
+//     })
+//
+//     if (!this.state.repos[selectedLanguage]) {
+//         fetchPopularRepos(selectedLanguage)
+//             .then((data) => {
+//                 this.setState(({ repos }) => ({
+//                     repos: {
+//                         ...repos,
+//                          [selectedLanguage]: data
+//                     }
+//                 }))
+//             })
+//             .catch((error) => {
+//                 console.warn('Error fetching repos: ', error)
+//                 this.setState({
+//                     error: 'There was an error fetching the repositories'
+//                 })
+//             })
+//     }
+// }
+//
+// isLoading() {
+//     const { selectedLanguage, repos, error} = this.state
+//     return !repos[selectedLanguage] && error === null
+// }
+
 
 // also works thats neat
 //       return LanguagesNav({

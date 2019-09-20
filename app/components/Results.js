@@ -50,14 +50,11 @@ ProfileList.propTypes = {
 }
 
 class Results extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            winner: null,
-            loser: null,
-            error: null,
-            loading: true
-        };
+    state = {
+        winner: null,
+        loser: null,
+        error: null,
+        loading: true
     }
 
     componentDidMount() {
@@ -81,8 +78,6 @@ class Results extends React.Component {
     }
 
     render() {const { winner, loser, error, loading } = this.state
-        const { onReset } = this.props
-
         if (loading === true) {
             return <Loading />
         }
@@ -113,6 +108,15 @@ class Results extends React.Component {
             </React.Fragment>
         );
     }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         winner: null,
+    //         loser: null,
+    //         error: null,
+    //         loading: true
+    //     };
+    // }
 }
 
 export default Results;

@@ -13,12 +13,24 @@ const styles = {
 }
 
 export default class Loading extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            content: props.text
-        };
+    state = { content: this.props.text }
+
+    static propTypes = {
+        text: PropTypes.string,
+        speed: PropTypes.number,
     }
+
+    static defaultProps = {
+        text: 'Loading',
+        speed: 300
+    }
+
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         content: props.text
+    //     };
+    // }
 
     componentDidMount() {
         const { speed, text } = this.props
@@ -43,12 +55,12 @@ export default class Loading extends React.Component {
     }
 }
 
-Loading.propTypes = {
-    text: PropTypes.string,
-    speed: PropTypes.number,
-}
+// Loading.propTypes = {
+//     text: PropTypes.string,
+//     speed: PropTypes.number,
+// }
 
-Loading.defaultProps = {
-    text: 'Loading',
-    speed: 300
-}
+// Loading.defaultProps = {
+//     text: 'Loading',
+//     speed: 300
+// }

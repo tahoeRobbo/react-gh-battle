@@ -36,18 +36,14 @@ function Instructions () {
 }
 
 class PlayerInput extends React.Component {
-    constructor(props) {
-        super(props);
+    state = { username: '' }
 
-        this.state = {
-            username: ''
-        };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+    static propTypes = {
+        onSubmit: PropTypes.func.isRequired,
+        label: PropTypes.string
     }
 
-    handleSubmit (event) {
+    handleSubmit = (event) => {
         event.preventDefault()
 
         this.props.onSubmit(this.state.username)
@@ -56,11 +52,7 @@ class PlayerInput extends React.Component {
         })
     }
 
-    handleChange (event) {
-        this.setState({
-            username: event.target.value
-        })
-    }
+    handleChange = (event) => {this.setState({ username: event.target.value })}
 
     render() {
         return (
@@ -97,11 +89,37 @@ class PlayerInput extends React.Component {
     }
 }
 
-
-PlayerInput.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    label: PropTypes.string
-}
+// constructor(props) {
+//     super(props);
+//
+//     this.state = {
+//         username: ''
+//     };
+//
+//     this.handleSubmit = this.handleSubmit.bind(this);
+//     this.handleChange = this.handleChange.bind(this);
+// }
+//
+// handleSubmit (event) {
+//     event.preventDefault()
+//
+//     this.props.onSubmit(this.state.username)
+//     this.setState({
+//         username: ''
+//     })
+// }
+//
+// handleChange (event) {
+//     this.setState({
+//         username: event.target.value
+//     })
+// }
+//
+// Added as static value using new Class Fields
+// PlayerInput.propTypes = {
+//     onSubmit: PropTypes.func.isRequired,
+//     label: PropTypes.string
+// }
 
 function PlayerPreview ({ username, onReset, label }) {
     return (
@@ -140,32 +158,17 @@ PlayerPreview.propTypes = {
 }
 
 class Battle extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            playerOne: null,
-            playerTwo: null,
-            battle: false
-        };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleReset = this.handleReset.bind(this);
+    state = {
+        playerOne: null,
+        playerTwo: null,
+        battle: false
     }
 
-    handleSubmit (id, player) {
-        this.setState({
-            [id]: player
-        })
-    }
-
-    handleReset (id) {
-        this.setState({
-            [id]: null
-        })
-    }
+    handleSubmit = (id, player) => this.setState({ [id]: player })
+    handleReset = (id) => this.setState({ [id]: null })
 
     render() {
-        const { battle, playerOne, playerTwo } = this.state
+        const { playerOne, playerTwo } = this.state
 
         return (
             <React.Fragment>
@@ -218,8 +221,30 @@ class Battle extends React.Component {
             </React.Fragment>
         );
     }
-}
 
-Battle.propTypes = {};
+// constructor(props) {
+//     super(props);
+//     this.state = {
+//         playerOne: null,
+//         playerTwo: null,
+//         battle: false
+//     };
+//
+//     this.handleSubmit = this.handleSubmit.bind(this);
+//     this.handleReset = this.handleReset.bind(this);
+// }
+//
+// handleSubmit (id, player) {
+//     this.setState({
+//         [id]: player
+//     })
+// }
+//
+// handleReset (id) {
+//     this.setState({
+//         [id]: null
+//     })
+// }
+}
 
 export default Battle;

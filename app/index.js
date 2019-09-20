@@ -13,18 +13,34 @@ import { ThemeProvider } from "./contexts/Theme";
 import './index.css'
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
+    // new Class Fields way.  Currently in stage 3 spec and popular in the community.
+    // must be used with @babel/plugin-proposal-class-properties
 
-        this.state = {
-            theme: 'light',
-            toggleTheme: () => {
-                this.setState(({ theme }) => ({
-                    theme: theme === 'light' ? 'dark' : 'light'
-                }))
-            }
+    state = {
+        theme: 'light',
+        toggleTheme: () => {
+            this.setState(({ theme }) => ({
+                theme: theme === 'light' ? 'dark' : 'light'
+            }))
         }
     }
+
+
+    // ES6 class spec
+    // **************
+
+    // constructor(props) {
+    //     super(props);
+    //
+    //     this.state = {
+    //         theme: 'light',
+    //         toggleTheme: () => {
+    //             this.setState(({ theme }) => ({
+    //                 theme: theme === 'light' ? 'dark' : 'light'
+    //             }))
+    //         }
+    //     }
+    // }
 
     render() {
         return (
