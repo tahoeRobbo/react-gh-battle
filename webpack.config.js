@@ -1,4 +1,3 @@
-// webpack.config.js
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin')
@@ -11,7 +10,7 @@ module.exports = {
     module: {
         rules: [
             { test: /\.svg$/, use: 'svg-inline-loader' },
-            { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+            { test: /\.(s)css$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
             { test: /\.(js)$/, use: 'babel-loader'}
         ]
     },

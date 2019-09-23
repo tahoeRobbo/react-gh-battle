@@ -10,7 +10,7 @@ import Loading from "./components/Loading";
 
 import { ThemeProvider } from "./contexts/Theme";
 
-import './index.css'
+import './styles/index.scss'
 
 const Popular = React.lazy(() => import('./components/Popular'))
 const Battle = React.lazy(() => import('./components/Battle'))
