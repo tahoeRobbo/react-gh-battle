@@ -83,7 +83,7 @@ li {
 }
 
 .link {
-  color: rgb(187, 46, 31);
+  color: $text-link;
   text-decoration: none;
   font-weight: bold;
 }
@@ -264,8 +264,8 @@ li {
 }
 
 .light-btn {
-  color: #000000;
   background: #aaa8a8;
+  color: #000000;
 }
 
 .light-btn:disabled {
