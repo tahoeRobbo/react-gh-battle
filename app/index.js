@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Nav from "./components/Nav";
 import Loading from "./components/Loading";
 
-import { ThemeProvider } from "./contexts/Theme";
+import ThemeContext from "./contexts/Theme";
 
 import './index.css'
 
@@ -49,7 +49,7 @@ class App extends React.Component {
     render() {
         return (
             <Router>
-                <ThemeProvider value={this.state}>
+                <ThemeContext.Provider value={this.state}>
                     <div className={this.state.theme}>
                         <div className="container">
                             <Nav />
@@ -64,7 +64,7 @@ class App extends React.Component {
                             </React.Suspense>
                         </div>
                     </div>
-                </ThemeProvider>
+                </ThemeContext.Provider>
             </Router>
         )
     }

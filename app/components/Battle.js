@@ -3,35 +3,33 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 
 import Results from "./Results";
-import { ThemeConsumer } from "../contexts/Theme"
+import ThemeContext from '../contexts/Theme'
 
 import { FaUserFriends, FaFighterJet, FaTrophy, FaTimesCircle } from "react-icons/fa";
 
 function Instructions () {
+    const { theme } = React.useContext(ThemeContext)
+
     return (
-        <ThemeConsumer>
-            {({ theme }) => (
-                <div className='instructions-container'>
-                    <h1 className='center-text header-lg'>
-                        Instructions
-                    </h1>
-                    <ol className='container-sm grid center-text battle-instructions'>
-                        <li>
-                            <h3 className='header-sm'>Enter two Github users</h3>
-                            <FaUserFriends className={`bg-${theme}`} color='rgb(255, 191, 116' size={140} />
-                        </li>
-                        <li>
-                            <h3 className='header-sm'>Battle</h3>
-                            <FaFighterJet className={`bg-${theme}`} color='#727272' size={140} />
-                        </li>
-                        <li>
-                            <h3 className='header-sm'>See the winner</h3>
-                            <FaTrophy className={`bg-${theme}`} color='rgb(255, 215, 0)' size={140} />
-                        </li>
-                    </ol>
-                </div>
-            )}
-        </ThemeConsumer>
+        <div className='instructions-container'>
+            <h1 className='center-text header-lg'>
+                Instructions
+            </h1>
+            <ol className='container-sm grid center-text battle-instructions'>
+                <li>
+                    <h3 className='header-sm'>Enter two Github users</h3>
+                    <FaUserFriends className={`bg-${theme}`} color='rgb(255, 191, 116' size={140} />
+                </li>
+                <li>
+                    <h3 className='header-sm'>Battle</h3>
+                    <FaFighterJet className={`bg-${theme}`} color='#727272' size={140} />
+                </li>
+                <li>
+                    <h3 className='header-sm'>See the winner</h3>
+                    <FaTrophy className={`bg-${theme}`} color='rgb(255, 215, 0)' size={140} />
+                </li>
+            </ol>
+        </div>
     )
 }
 
@@ -57,7 +55,7 @@ class PlayerInput extends React.Component {
     render() {
         return (
             <div>
-                <ThemeConsumer>
+                <ThemeContext.Consumer>
                     {({ theme }) => (
                         <form className='column player' onSubmit={this.handleSubmit} >
                             <label htmlFor='username' className='player-label'>
@@ -83,7 +81,7 @@ class PlayerInput extends React.Component {
                             </div>
                         </form>
                     )}
-                </ThemeConsumer>
+                </ThemeContext.Consumer>
             </div>
         );
     }
@@ -122,32 +120,29 @@ class PlayerInput extends React.Component {
 // }
 
 function PlayerPreview ({ username, onReset, label }) {
+    const { theme } = React.useContext(ThemeContext)
     return (
-        <ThemeConsumer>
-            {({ theme }) => (
-                <div className='column player'>
-                    <h3 className='player-label'>{label}</h3>
-                    <div className={`row bg-${theme}`}>
-                        <div className='player-info'>
-                            <img
-                                src={`https://github.com/${username}.png?size=200`}
-                                alt={`Avatar for ${username}`}
-                                className='avatar-small'
-                            />
-                            <a
-                                href={`https://github.com/${username}`}
-                                className='link'
-                            >
-                                {username}
-                            </a>
-                            <button className='btn-clear flex-center' onClick={onReset}>
-                                <FaTimesCircle color='rgb(194, 57, 42)' size={26}/>
-                            </button>
-                        </div>
-                    </div>
+        <div className='column player'>
+            <h3 className='player-label'>{label}</h3>
+            <div className={`row bg-${theme}`}>
+                <div className='player-info'>
+                    <img
+                        src={`https://github.com/${username}.png?size=200`}
+                        alt={`Avatar for ${username}`}
+                        className='avatar-small'
+                    />
+                    <a
+                        href={`https://github.com/${username}`}
+                        className='link'
+                    >
+                        {username}
+                    </a>
+                    <button className='btn-clear flex-center' onClick={onReset}>
+                        <FaTimesCircle color='rgb(194, 57, 42)' size={26}/>
+                    </button>
                 </div>
-            )}
-        </ThemeConsumer>
+            </div>
+        </div>
     )
 }
 
