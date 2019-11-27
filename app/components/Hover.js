@@ -1,24 +1,24 @@
-import React from 'react'
+// Deprecated for useHover hook
 
-class Hover extends React.Component {
-    state = { hovering: false }
+// class Hover extends React.Component {
+//     state = { hovering: false }
+//
+//     mouseOver = () => this.setState({ hovering: true })
+//     mouseOut = () => this.setState({ hovering: false })
+//
+//     render() {
+//         return (
+//             <div
+//                 onMouseOver={this.mouseOver}
+//                 onMouseOut={this.mouseOut}
+//             >
+//                 {this.props.children(this.state.hovering)}
+//             </div>
+//         );
+//     }
+// }
 
-    mouseOver = () => this.setState({ hovering: true })
-    mouseOut = () => this.setState({ hovering: false })
-
-    render() {
-        return (
-            <div
-                onMouseOver={this.mouseOver}
-                onMouseOut={this.mouseOut}
-            >
-                {this.props.children(this.state.hovering)}
-            </div>
-        );
-    }
-}
-
-export default Hover
+// export default Hover
 
 
 // constructor(props) {
