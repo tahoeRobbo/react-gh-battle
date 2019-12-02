@@ -227,8 +227,7 @@ function Battle () {
     }
 
     const [ state, dispatch ] = React.useReducer(battleReducer, initialState)
-
-    // const { playerOne, playerTwo } = state
+    const { playerOne, playerTwo } = state
 
     return (
             <React.Fragment>
@@ -237,7 +236,7 @@ function Battle () {
                 <div className='players-container'>
                     <h1 className='center-text header-lg'>Players</h1>
                      <div className='row space-around'>
-                         {state.playerOne === null
+                         {playerOne === null
                              ? <PlayerInput
                                  onSubmit={(player) => dispatch({
                                      type: 'submit',
@@ -252,11 +251,11 @@ function Battle () {
                                      type: 'reset',
                                      id: 'playerOne'
                                  })}
-                                 username={state.playerOne}
+                                 username={playerOne}
                                 />
 
                          }
-                         {state.playerTwo === null
+                         {playerTwo === null
                              ? <PlayerInput
                                  onSubmit={(player) => dispatch({
                                      type: 'submit',
@@ -271,18 +270,18 @@ function Battle () {
                                      type: 'reset',
                                      id: 'playerTwo'
                                  })}
-                                 username={state.playerTwo}
+                                 username={playerTwo}
                                  />
                          }
                      </div>
 
-                    {state.playerOne && state.playerTwo && (
+                    {playerOne && playerTwo && (
                         <Link
                             className='btn dark-btn btn-space'
                             onClick={() => dispatch({type: 'battle'})}
                             to={{
                                 pathname: '/battle/results',
-                                search: `?playerOne=${state.playerOne}&playerTwo=${state.playerTwo}`
+                                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
 
                             }}
                         >
@@ -291,7 +290,6 @@ function Battle () {
                     )}
 
                 </div>
-
             </React.Fragment>
     );
 }

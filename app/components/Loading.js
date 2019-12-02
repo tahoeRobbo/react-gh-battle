@@ -12,48 +12,76 @@ const styles = {
     }
 }
 
-export default class Loading extends React.Component {
-    state = { content: this.props.text }
+export default function Loading ({ text = 'loading', speed = 100 }) {
+    console.log('loading')
+    const [ content, setContent ] = React.useState(text)
+    React.useEffect(() => {
+        const interval = window.setInterval(() => {
+            setContent((content) => {
+                return content === `${text}...`
+                    ? text
+                    : `${content}.`
+            })
+        }, speed)
 
-    static propTypes = {
-        text: PropTypes.string,
-        speed: PropTypes.number,
-    }
+        return () => window.clearInterval(interval)
 
-    static defaultProps = {
-        text: 'Loading',
-        speed: 300
-    }
+    }, [text, speed])
 
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         content: props.text
-    //     };
-    // }
-
-    componentDidMount() {
-        const { speed, text } = this.props
-
-        this.interval =  window.setInterval(() => {
-            this.state.content === text + '...'
-                ? this.setState({ content: text })
-                : this.setState(({ content }) => ({content: content + '.'}))
-        } , speed)
-    }
-
-    componentWillUnmount() {
-        window.clearInterval(this.interval)
-    }
-
-    render() {
-        return (
-            <p style={styles.content}>
-                {this.state.content}
-            </p>
-        );
-    }
+    return (
+      <p style={styles.content}>
+          {content}
+      </p>
+    )
 }
+
+Loading.propTypes = {
+    text: PropTypes.string,
+    speed: PropTypes.number,
+}
+
+// export default class Loading2 extends React.Component {
+//     state = { content: this.props.text }
+//
+//     static propTypes = {
+//         text: PropTypes.string,
+//         speed: PropTypes.number,
+//     }
+//
+//     static defaultProps = {
+//         text: 'Loading',
+//         speed: 300
+//     }
+//
+//     // constructor(props) {
+//     //     super(props);
+//     //     this.state = {
+//     //         content: props.text
+//     //     };
+//     // }
+//
+//     componentDidMount() {
+//         const { speed, text } = this.props
+//
+//         this.interval =  window.setInterval(() => {
+//             this.state.content === text + '...'
+//                 ? this.setState({ content: text })
+//                 : this.setState(({ content }) => ({content: content + '.'}))
+//         } , speed)
+//     }
+//
+//     componentWillUnmount() {
+//         window.clearInterval(this.interval)
+//     }
+//
+//     render() {
+//         return (
+//             <p style={styles.content}>
+//                 {this.state.content}
+//             </p>
+//         );
+//     }
+// }
 
 // Loading.propTypes = {
 //     text: PropTypes.string,

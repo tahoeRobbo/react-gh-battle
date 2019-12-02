@@ -3,12 +3,12 @@ import React from 'react'
 function useHover () {
   const [ hovering, setHovering ] = React.useState(false)
 
-  const mouseOver = () => setHovering(true)
-  const mouseOut = () => setHovering(false)
+  const onMouseOver = () => setHovering(true)
+  const onMouseOut = () => setHovering(false)
 
   const attrs= {
-    onMouseOver: mouseOver,
-    onMouseOut: mouseOut
+    onMouseOver,
+    onMouseOut
   }
 
   return [hovering, attrs]
