@@ -13,7 +13,6 @@ const styles = {
 }
 
 export default function Loading ({ text = 'loading', speed = 100 }) {
-    console.log('loading')
     const [ content, setContent ] = React.useState(text)
     React.useEffect(() => {
         const interval = window.setInterval(() => {
@@ -52,13 +51,6 @@ Loading.propTypes = {
 //         text: 'Loading',
 //         speed: 300
 //     }
-//
-//     // constructor(props) {
-//     //     super(props);
-//     //     this.state = {
-//     //         content: props.text
-//     //     };
-//     // }
 //
 //     componentDidMount() {
 //         const { speed, text } = this.props
