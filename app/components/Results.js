@@ -49,65 +49,124 @@ ProfileList.propTypes = {
     profile: PropTypes.object.isRequired
 }
 
-class Results extends React.Component {
-    state = {
-        winner: null,
-        loser: null,
-        error: null,
-        loading: true
-    }
+const initialState = {
+    winner: null,
+    loser: null,
+    error: null,
+    loading: true
+}
 
-    componentDidMount() {
-        const { playerOne, playerTwo } = queryString.parse(this.props.location.search)
-
-        battle([playerOne, playerTwo])
-            .then((players) => {
-                this.setState({
-                    winner: players[0],
-                    loser: players[1],
-                    error: null,
-                    loading: false
-                })
-            })
-            .catch(({ message }) => {
-                this.setState({
-                    error: message,
-                    loading: false
-                })
-            })
-    }
-
-    render() {const { winner, loser, error, loading } = this.state
-        if (loading === true) {
-            return <Loading />
+function resultsReducer (state, action) {
+    if (action.type === 'success') {
+        return {
+            ...state,
+            winner: action.players[0],
+            loser: action.players[1],
+            loading: false
         }
-
-        return (
-            <React.Fragment>
-               <div className='grid space-around container-sm'>
-                   <Card href={winner.profile.html_url}
-                         avatar={winner.profile.avatar_url}
-                         name={winner.profile.login}
-                         header={winner.score === loser.score ? 'Tie' : 'Winner'}
-                         subheader={`Score: ${winner.score.toLocaleString()}`}
-                   >
-                       <ProfileList profile={winner.profile}/>
-                   </Card>
-                   <Card
-                        header= {winner.score === loser.score ? 'Tie' : 'Loser'}
-                        subheader={`Score: ${loser.score.toLocaleString()}`}
-                        avatar={loser.profile.avatar_url}
-                        href={loser.profile.html_url}
-                        name={loser.profile.login}
-                   >
-                      <ProfileList profile={loser.profile}/>
-                   </Card>
-
-               </div>
-                <Link to='/battle' className='btn dark-btn btn-space'>Reset</Link>
-            </React.Fragment>
-        );
+    } else if (action.type === 'error') {
+        return {
+            ...state,
+            error: action.error.message,
+            loading: false
+        }
+    } else {
+        throw new Error('That action type is not supported')
     }
+}
+
+function Results ({ location }) {
+    const [ state, dispatch ] = React.useReducer(
+        resultsReducer,
+        initialState
+    )
+    const { playerOne, playerTwo } = queryString.parse(location.search)
+    const { winner, loser, loading } = state
+
+    React.useEffect(() => {
+        battle([playerOne, playerTwo])
+        .then((players) => dispatch({ type: 'success', players}))
+        .catch(({ error }) => dispatch({ type: 'error', error}))
+    }, [playerOne, playerTwo])
+
+    if (loading === true) {
+        return <Loading />
+    }
+
+    return (
+      <React.Fragment>
+          <div className='grid space-around container-sm'>
+              <Card href={winner.profile.html_url}
+                    avatar={winner.profile.avatar_url}
+                    name={winner.profile.login}
+                    header={winner.score === loser.score ? 'Tie' : 'Winner'}
+                    subheader={`Score: ${winner.score.toLocaleString()}`}
+              >
+                  <ProfileList profile={winner.profile}/>
+              </Card>
+              <Card
+                header= {winner.score === loser.score ? 'Tie' : 'Loser'}
+                subheader={`Score: ${loser.score.toLocaleString()}`}
+                avatar={loser.profile.avatar_url}
+                href={loser.profile.html_url}
+                name={loser.profile.login}
+              >
+                  <ProfileList profile={loser.profile}/>
+              </Card>
+
+          </div>
+          <Link to='/battle' className='btn dark-btn btn-space'>Reset</Link>
+      </React.Fragment>
+    );
+}
+
+// class Results extends React.Component {
+//     state = {
+//         winner: null,
+//         loser: null,
+//         error: null,
+//         loading: true
+//     }
+//
+//     componentDidMount() {
+//         const { playerOne, playerTwo } = queryString.parse(this.props.location.search)
+//
+//         battle([playerOne, playerTwo])
+//             .then((players) => dispatch({ type: 'success', players}))
+//             .catch(({ error }) => dispatch({ type: 'error', error}))
+//     }
+//
+//     render() {const { winner, loser, error, loading } = this.state
+//         if (loading === true) {
+//             return <Loading />
+//         }
+//
+//         return (
+//             <React.Fragment>
+//                <div className='grid space-around container-sm'>
+//                    <Card href={winner.profile.html_url}
+//                          avatar={winner.profile.avatar_url}
+//                          name={winner.profile.login}
+//                          header={winner.score === loser.score ? 'Tie' : 'Winner'}
+//                          subheader={`Score: ${winner.score.toLocaleString()}`}
+//                    >
+//                        <ProfileList profile={winner.profile}/>
+//                    </Card>
+//                    <Card
+//                         header= {winner.score === loser.score ? 'Tie' : 'Loser'}
+//                         subheader={`Score: ${loser.score.toLocaleString()}`}
+//                         avatar={loser.profile.avatar_url}
+//                         href={loser.profile.html_url}
+//                         name={loser.profile.login}
+//                    >
+//                       <ProfileList profile={loser.profile}/>
+//                    </Card>
+//
+//                </div>
+//                 <Link to='/battle' className='btn dark-btn btn-space'>Reset</Link>
+//             </React.Fragment>
+//         );
+//     }
     // constructor(props) {
     //     super(props);
     //     this.state = {
@@ -117,6 +176,5 @@ class Results extends React.Component {
     //         loading: true
     //     };
     // }
-}
 
 export default Results;

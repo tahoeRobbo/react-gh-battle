@@ -1,9 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-import Hover from "./Hover";
-
-
+import useHover from '../hooks/useHover'
 
 const styles = {
     container: {
@@ -27,34 +24,50 @@ const styles = {
     }
 }
 
-class Tooltip extends React.Component {
-    static propTypes = {
-        text: PropTypes.string.isRequired
-    }
+// Tooltip with custom hook
+function Tooltip ({ text, children }) {
+    const [ hovering, attrs ] = useHover()
 
-    render() {
-        const { text, children } = this.props
-
-        return (
-            <div>
-                <Hover>
-                    {(hovering) => (
-                        <div style={styles.container}>
-                            {hovering === true && <div style={styles.tooltip}>{text}</div>}
-                            {children}
-                        </div>
-                    )}
-                </Hover>
-            </div>
-        );
-    }
+    return (
+      <div style={styles.container} {...attrs}>
+        {hovering === true && <div style={styles.tooltip}>{text}</div>}
+        {children}
+      </div>
+    )
 }
 
+export default Tooltip
+
+// Tooltip with render props pattern
+
+// class Tooltip extends React.Component {
+//     static propTypes = {
+//         text: PropTypes.string.isRequired
+//     }
+//
+//     render() {
+//         const { text, children } = this.props
+//
+//         return (
+//             <div>
+//                 <Hover>
+//                     {(hovering) => (
+//                         <div style={styles.container}>
+//                             {hovering === true && <div style={styles.tooltip}>{text}</div>}
+//                             {children}
+//                         </div>
+//                     )}
+//                 </Hover>
+//             </div>
+//         );
+//     }
+// }
+//
 // Tooltip.propTypes = {
 //     text: PropTypes.string.isRequired
 // }
-
-export default Tooltip
+//
+// export default Tooltip
 
 // Tooltip using withHover HOC pattern
 // ***********************************
