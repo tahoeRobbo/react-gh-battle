@@ -67,7 +67,8 @@ function resultsReducer (state, action) {
     } else if (action.type === 'error') {
         return {
             ...state,
-            error: action.error.message
+            error: action.error.message,
+            loading: false
         }
     } else {
         throw new Error('That action type is not supported')
@@ -80,7 +81,7 @@ function Results ({ location }) {
         initialState
     )
     const { playerOne, playerTwo } = queryString.parse(location.search)
-    const { winner, loser, error, loading } = state
+    const { winner, loser, loading } = state
 
     React.useEffect(() => {
         battle([playerOne, playerTwo])
